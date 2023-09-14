@@ -1,0 +1,83 @@
+.quiz-page {
+    // background: #000;
+    position: relative;
+    width: 55%;
+    margin: 0 auto;
+    display: none;
+    padding: 150px 20px 20px 20px;
+    @media (max-width: 576px) {
+        width: 90%
+    }
+
+    & > strong {
+        font-size: 21px;
+    }
+    & .answers {
+        display: grid;
+        grid-template-columns: repeat(2 ,1fr);
+        grid-template-rows: repeat(2 , 50px);
+        grid-gap: 1rem;
+
+        & button {
+            // height: 45px;
+            // padding: 15px 10px;
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 19px;
+            background: #dfdfdf;
+            border-radius: 12px;
+            border: none;
+            outline: none;cursor: pointer;
+
+            &.wrang {
+                box-shadow: 0 0 0 5px rgba(252, 70, 37 , .2);
+                background: rgb(252, 70, 37);
+                color: var(--light);
+            }
+            
+            &.success {
+                color: var(--light);
+                box-shadow: 0 0 0 5px rgba(0, 166, 0 ,.2);
+                background: rgb(0, 166, 0);
+            }
+        }
+    }
+
+    & .progress-time {
+        height: 10px;
+        background: #e8e8e8;
+        width: 100%;
+        border-radius: 6px;
+        & .progress {
+            width: 43%;
+            border-radius: 6px;
+            height: 100%;
+            background:var(--primary);
+        }
+    }
+
+    & .time-text {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .next-step {
+        display: flex;
+        justify-content: space-between;
+
+        & button {
+            background: linear-gradient(45deg , var(--primary) , var(--secondary));
+            border: none;
+            color: var(--light);
+            padding: 13px 45px;
+            font-size: 22px;
+            border-radius: 12px;
+            cursor: pointer;
+
+            &#close-quiz {
+                background: #ddd;
+                color: var(--dark)
+            }
+        }
+    }
+}

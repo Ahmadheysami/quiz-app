@@ -1,0 +1,48 @@
+.point-history {
+display: none;
+place-items: center;
+min-height: 60lvh;
+
+& > h1 {
+    font-size: 4rem;
+    position: relative;
+    &::before {
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        content: "";
+        width: 56%;
+        height: 5px;
+        background: var(--primary);
+        border-radius: 12px;
+    }
+}
+
+& .players {
+    width: 370px;
+    display: grid;
+    gap: 1rem;
+    & > div {
+        background: #fff;
+        // border: .5px solid var(--primary);
+        padding: 16px;
+        border-radius: 13px;
+        box-shadow: 0 0 30px rgba(0,0,0,.03);
+        transition: all 200ms ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &:first-child {
+            scale: 1.05;
+
+            &:hover {
+                scale: 1.1;
+            }
+        }
+        &:hover {
+            scale: 1.05;
+        }
+    }
+}
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quizz Application</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <!-- START => Navbar -->
+
+        <nav>
+          <h1>Score: 100pt</h1>
+        </nav>
+
+        <!-- END => Navbar -->
+
+        <!-- START => Start Game -->
+
+        <div class="start-game">
+          <h1 class="title">
+            <div>Q</div>
+            <div>u</div>
+            <div>i</div>
+            <div>z</div>
+            <div>A</div>
+            <div>p</div>
+            <div>p</div>
+          </h1>
+          <p class="text-center">Start Game</p>
+          <br /><br /><br />
+          <div class="start-game__controls">
+            <button data-control="start" id="start">Start</button>
+            <div class="row difficulty">
+              <div>
+                <input type="radio" name="a" />
+                <button data-control="easy">Easy</button>
+              </div>
+              <div>
+                <input type="radio" name="a" checked />
+                <button data-control="medium">Medium</button>
+              </div>
+              <div>
+                <input type="radio" name="a" />
+                <button data-control="hard">Hard</button>
+              </div>
+            </div>
+            <button data-control="points-history" id="points-history">
+              Points History
+            </button>
+          </div>
+        </div>
+
+        <!-- END => Start Game -->
+
+        <!-- START => Quiz Page -->
+
+        <div class="quiz-page">
+          <strong
+            >What was the name of the security vulnerability found in Bash in
+            2014?</strong
+          >
+          <br /><br /><br />
+          <div class="answers">
+            <button class="success">Shellshock</button>
+            <button>Heartbleed</button>
+            <button>Bashbug</button>
+            <button class="wrang">Stagefright</button>
+          </div>
+          <br /><br />
+          <div class="progress-time">
+            <div class="progress"></div>
+          </div>
+          <p class="time-text">06:44</p>
+          <br /><br />
+          <div class="next-step">
+            <button id="close-quiz">Close</button>
+            <button id="next">Next</button>
+          </div>
+        </div>
+
+        <!-- END => Quiz Page -->
+
+        <!-- START => Points History -->
+
+        <div class="point-history">
+          <br />
+          <br />
+          <h1>Points History</h1>
+          <br /><br /><br />
+          <div class="players">
+            <div>
+              <span>John</span>
+              <span>22 Pt</span>
+            </div>
+            <div>
+              <span>Ahmad</span>
+              <span>22 Pt</span>
+            </div>
+          </div>
+          <br />
+          <!-- back -->
+          <div class="text-center">
+            <button class="btn" id="points-back">Back</button>
+          </div>
+        </div>
+
+        <!-- END => Points History -->
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

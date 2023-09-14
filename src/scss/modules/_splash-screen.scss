@@ -1,0 +1,25 @@
+.splash-screen {
+    width: 100%;
+    min-height: 100lvh;
+    background: #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 500ms ease;
+    z-index: 1010;
+    & > h1 {
+        font-size: 3rem;
+        margin-top: 30px;
+    }
+
+    &.show {
+        visibility: visible;
+        opacity: 1;
+    }
+}
