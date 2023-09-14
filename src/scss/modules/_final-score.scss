@@ -1,0 +1,19 @@
+.final-score {
+    display: none;
+    place-items: center;
+    &  > .title {
+        font-size: 3.7rem;
+        font-weight: bolds;
+    }
+    & > .score {
+        background: var(--primary);
+        color: var(--light);
+        width: 90px;
+        height: 90px;
+        display: grid;
+        place-items: center;
+        padding: 7px;
+        border-radius: 51% 49% 55% 45% / 34% 32% 68% 66% ;
+        font-size: 2rem;
+    }   
+}

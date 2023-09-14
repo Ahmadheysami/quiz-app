@@ -4,13 +4,18 @@
     width: 55%;
     margin: 0 auto;
     display: none;
-    padding: 150px 20px 20px 20px;
+    padding: 100px 20px 20px 20px;
     @media (max-width: 576px) {
         width: 90%
     }
 
     & > strong {
         font-size: 21px;
+        background:var(--primary);
+        color: var(--light);
+        display: block;
+        padding: 10px;
+        border-radius: 12px;;
     }
     & .answers {
         display: grid;
