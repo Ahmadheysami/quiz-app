@@ -35,16 +35,16 @@
             <button data-control="start" id="start">Start</button>
             <div class="row difficulty">
               <div>
-                <input type="radio" name="a" />
-                <button data-control="easy">Easy</button>
+                <input type="radio" name="a" data-control="easy" />
+                <button>Easy</button>
               </div>
               <div>
-                <input type="radio" name="a" checked />
-                <button data-control="medium">Medium</button>
+                <input type="radio" name="a" data-control="medium" checked />
+                <button>Medium</button>
               </div>
               <div>
-                <input type="radio" name="a" />
-                <button data-control="hard">Hard</button>
+                <input type="radio" name="a" data-control="hard" />
+                <button>Hard</button>
               </div>
             </div>
             <button data-control="points-history" id="points-history">
@@ -58,12 +58,12 @@
         <!-- START => Quiz Page -->
 
         <div class="quiz-page">
-          <strong
+          <strong class="quiz-question"
             >What was the name of the security vulnerability found in Bash in
             2014?</strong
           >
           <br /><br /><br />
-          <div class="answers">
+          <div class="answers quiz-answers">
             <button class="success">Shellshock</button>
             <button>Heartbleed</button>
             <button>Bashbug</button>
@@ -73,11 +73,11 @@
           <div class="progress-time">
             <div class="progress"></div>
           </div>
-          <p class="time-text">06:44</p>
+          <p class="time-text">0</p>
           <br /><br />
           <div class="next-step">
             <button id="close-quiz">Close</button>
-            <button id="next">Next</button>
+            <button id="next" class="quiz-next-question">Next</button>
           </div>
         </div>
 
@@ -114,10 +114,18 @@
         <div class="final-score">
           <h1 class="title">END GAME</h1>
           <br /><br />
-          <h1 class="score">22 PT</h1>
+          <h1 class="score" id="score">22 PT</h1>
 
           <br /><br /><br />
           <div class="start-game__controls">
+            <input type="text" class="input-text" placeholder="Name.." />
+            <button
+              data-control="save-score"
+              class="bg-primary"
+              id="save-score"
+            >
+              Save Score
+            </button>
             <button data-control="start" id="start">Play Again</button>
           </div>
           <br /><br /><br />
@@ -125,6 +133,7 @@
           <div class="text-center">
             <button class="btn" id="points-back">Back</button>
           </div>
+          <br /><br />
         </div>
 
         <!-- START => Final Score -->
