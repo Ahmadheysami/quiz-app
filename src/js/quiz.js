@@ -129,13 +129,13 @@ function generateQuestion(questions, index = 0) {
 
   let correct = Array.from(quizAnswersParent.children).find(
     (item) =>
-      item.innerHTML.toString() ===
-      `${questions[index].correct_answer.toString()}`
+      item.innerHTML.toString().trim() ===
+      `${questions[index].correct_answer.toString().trim()}`
   );
   Array.from(quizAnswersParent.children).forEach((item) => {
     item.addEventListener("click", (e) => {
       if (
-        e.currentTarget.innerText.toString() !=
+        e.currentTarget.innerText.toString().trim() !=
         `${questions[index].correct_answer.toString().trim()}`
       ) {
         e.currentTarget.classList.add("wrang");
