@@ -183,7 +183,10 @@ function saveScore() {
   }
   let scores = getFromLocalStorage("scores");
 
-  scores.push({ score: allScore, name: inputName.value });
+  scores.push({
+    score: allScore,
+    name: inputName.value,
+  });
   saveToLocalStorage("scores", scores);
   calcSavedScores(sumScoreElem);
   alert("Score Saved!");
