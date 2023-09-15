@@ -129,7 +129,7 @@ function generateQuestion(questions, index = 0) {
 
   let correct = Array.from(quizAnswersParent.children).find(
     (item) =>
-      item.innerHTML.toString().trim() ===
+      item.innerHTML.toString().trim() ==
       `${questions[index].correct_answer.toString().trim()}`
   );
   Array.from(quizAnswersParent.children).forEach((item) => {
