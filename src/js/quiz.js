@@ -1,4 +1,11 @@
-import { show, hide, createLoading, destroyLoading } from "./helpers";
+import {
+  show,
+  hide,
+  createLoading,
+  destroyLoading,
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from "./helpers";
 
 // queries
 const startGamePage = document.querySelector(".start-game"),
@@ -12,13 +19,19 @@ const startGamePage = document.querySelector(".start-game"),
   quizQuestion = document.querySelector(".quiz-question"),
   quizAnswersParent = document.querySelector(".quiz-answers"),
   quizNextQuestion = document.querySelector(".quiz-next-question"),
-  quizTimeText = document.querySelector(".time-text"),
+  quizQuestionCount = document.querySelector(".question-count"),
+  // quizProgressCount = document.querySelector(".quiz-progress-count .progress"),
   finalScorePage = document.querySelector(".final-score"),
   inputName = document.querySelector(".input-text"),
-  saveScoreControl = document.getElementById("save-score");
+  saveScoreControl = document.getElementById("save-score"),
+  playAgainControl = document.getElementById("play-again"),
+  finalGameBackControl = document.getElementById("final-back"),
+  pointsHistoryParent = document.querySelector(".point-history .players"),
+  sumScoreElem = document.querySelector(".alsc");
 
 let allScore = 0,
-  quizScores = [];
+  quizScores = [],
+  questionsAmount = 10;
 
 // Open Quiz Page when Click The Start Game Control
 function openQuizPage() {
@@ -28,13 +41,15 @@ function openQuizPage() {
 
 // Open Points History when Click The point history Control
 function openPointsHistory() {
-  console.log(this);
   hide(startGamePage);
   show(pointsHistoryPage, "grid");
 }
 
 // back to prev
 function back() {
+  allScore = 0;
+  quizScores = [];
+  questionIndex = 0;
   hide(this.parentElement.parentElement);
   show(startGamePage, "grid");
 }
@@ -51,12 +66,22 @@ let questions = null;
 
 let questionIndex = 0;
 
+function initStorage() {
+  if (!localStorage.getItem("scores")) {
+    localStorage.setItem("scores", JSON.stringify([]));
+  }
+}
+
+initStorage();
+
 async function startGame() {
   if (quizPage.classList.contains("visible")) {
     // Fetch Questions
     try {
       createLoading(quizPage);
-      let res = await fetch("https://opentdb.com/api.php?amount=10"),
+      let res = await fetch(
+          `https://opentdb.com/api.php?amount=${questionsAmount}`
+        ),
         qs = await res.json();
 
       questions = qs.results;
@@ -99,12 +124,17 @@ function generateQuestion(questions, index = 0) {
     quizAnswersParent.append(btnAnswer);
   });
 
+  // Question Count
+  questionCount(questionsAmount, index, quizQuestionCount);
+
   let correct = Array.from(quizAnswersParent.children).find(
-    (item) => item.innerHTML === questions[index].correct_answer
+    (item) => item.innerHTML === `${questions[index].correct_answer}`
   );
   Array.from(quizAnswersParent.children).forEach((item) => {
     item.addEventListener("click", (e) => {
-      if (e.currentTarget.innerText !== questions[index].correct_answer) {
+      if (
+        e.currentTarget.innerText != `${questions[index].correct_answer.trim()}`
+      ) {
         e.currentTarget.classList.add("wrang");
         correct.classList.add("success");
         correct.setAttribute("data-success", 0);
@@ -112,6 +142,10 @@ function generateQuestion(questions, index = 0) {
         correct.classList.add("success");
         correct.setAttribute("data-success", 1);
       }
+
+      setTimeout(() => {
+        nextQuestion();
+      }, 500);
     });
   });
 }
@@ -120,11 +154,15 @@ function nextQuestion() {
   let correct = Array.from(quizAnswersParent.children).find(
     (answer) => answer.dataset.success
   );
-  quizScores.push(+correct.dataset.success);
+  if (!correct) {
+    quizScores.push(0);
+  } else {
+    quizScores.push(+correct.dataset.success);
+  }
 
   questionIndex++;
 
-  if (questionIndex + 1 >= questions.length) {
+  if (questionIndex >= questions.length) {
     allScore = quizScores.filter((s) => s == 1).length * 8;
 
     score.innerHTML = allScore;
@@ -140,10 +178,69 @@ function saveScore() {
     alert("Please Enter Your Name");
     return;
   }
+  let scores = getFromLocalStorage("scores");
 
+  scores.push({ score: allScore, name: inputName.value });
+  saveToLocalStorage("scores", scores);
+  calcSavedScores(sumScoreElem);
   alert("Score Saved!");
 }
 
+function playAgain() {
+  // Reset All Value Saved
+  allScore = 0;
+  quizScores = [];
+  questionIndex = 0;
+
+  hide(finalScorePage);
+  show(quizPage, "grid");
+}
+
+function generatePointsHistory() {
+  if (pointsHistoryPage.classList.contains("visible")) {
+    const scores = getFromLocalStorage("scores");
+
+    // check scores if empty
+    if (scores.length <= 0) {
+      pointsHistoryParent.insertAdjacentHTML(
+        "afterbegin",
+        `<div>
+      <span>Players Not Found</span>
+    </div>`
+      );
+    }
+    scores.forEach((user) => {
+      let scoreTemplate = `
+      <div>
+      <span>${user.name}</span>
+      <span>${user.score} Pt</span>
+    </div>
+    `;
+
+      pointsHistoryParent.insertAdjacentHTML("afterbegin", scoreTemplate);
+    });
+  }
+}
+
+function calcSavedScores(el) {
+  const scores = getFromLocalStorage("scores");
+
+  let counter = 0,
+    sumScore = 0;
+  while (counter < scores.length) {
+    sumScore = sumScore + scores[counter].score;
+
+    counter++;
+  }
+
+  el.innerHTML = "Score: " + sumScore + " Pt";
+}
+
+calcSavedScores(sumScoreElem);
+
+function questionCount(all, current, el) {
+  el.innerHTML = `${current + 1} / ${all}`;
+}
 // Event
 startGameControl.addEventListener("click", openQuizPage);
 pointsHistoryControl.addEventListener("click", openPointsHistory);
@@ -152,3 +249,7 @@ closeQuizControl.addEventListener("click", back);
 startGameControl.addEventListener("click", startGame);
 quizNextQuestion.addEventListener("click", nextQuestion);
 saveScoreControl.addEventListener("click", saveScore);
+playAgainControl.addEventListener("click", playAgain);
+playAgainControl.addEventListener("click", startGame);
+finalGameBackControl.addEventListener("click", back);
+pointsHistoryControl.addEventListener("click", generatePointsHistory);

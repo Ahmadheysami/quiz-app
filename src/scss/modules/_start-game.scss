@@ -114,10 +114,10 @@
                 color: var(--light);
             }
 
-            & input:hover ~ button {
-                box-shadow: 0 0 0 1.4px var(--primary);
-                transform: translateY(-5px) !important
-            }
+            // & input:hover ~ button {
+            //     box-shadow: 0 0 0 1.4px var(--primary);
+            //     transform: translateY(-5px) !important
+            // }
 
             & button {
                 height: 100%;

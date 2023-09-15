@@ -1,6 +1,9 @@
 .final-score {
     display: none;
     place-items: center;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 40px;
     &  > .title {
         font-size: 3.7rem;
         font-weight: bolds;

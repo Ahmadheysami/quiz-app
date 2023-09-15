@@ -18,4 +18,11 @@ function destroyLoading(parent) {
   parent.querySelector(".loading").remove();
 }
 
-export { show, hide, createLoading, destroyLoading };
+function saveToLocalStorage(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function getFromLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+export { show, hide, createLoading, destroyLoading , saveToLocalStorage ,getFromLocalStorage };
