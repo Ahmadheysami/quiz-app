@@ -128,12 +128,15 @@ function generateQuestion(questions, index = 0) {
   questionCount(questionsAmount, index, quizQuestionCount);
 
   let correct = Array.from(quizAnswersParent.children).find(
-    (item) => item.innerHTML === `${questions[index].correct_answer}`
+    (item) =>
+      item.innerHTML.toString() ===
+      `${questions[index].correct_answer.toString()}`
   );
   Array.from(quizAnswersParent.children).forEach((item) => {
     item.addEventListener("click", (e) => {
       if (
-        e.currentTarget.innerText != `${questions[index].correct_answer.trim()}`
+        e.currentTarget.innerText.toString() !=
+        `${questions[index].correct_answer.toString().trim()}`
       ) {
         e.currentTarget.classList.add("wrang");
         correct.classList.add("success");
